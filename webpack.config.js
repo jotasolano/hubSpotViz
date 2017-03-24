@@ -1,6 +1,5 @@
 //run webpack-dev-server --content-base dist
 //https://webpack.github.io/docs/configuration.html
-
 module.exports = {
 	entry:'./src/index.js',
 	output:{
@@ -24,7 +23,8 @@ module.exports = {
 			},
 			{test:/\.css$/, loader:"style-loader!css-loader"},
 			{ test: /\.woff(\d+)?$/, loader: 'url?prefix=font/&limit=5000&mimetype=application/font-woff' },
-			{ test: /\.(csv|json)$/, loader: 'file-loader' },
+			// { test: /\.(csv|json)$/, loader: 'file-loader' },
+			{test: /\.json$/, loader: 'json-loader'},
          	{ test: /\.ttf$/, loader: 'file?prefix=font/' },
          	{ test: /\.eot$/, loader: 'file?prefix=font/' },
          	{ test: /\.svg$/, loader: 'file?prefix=font/' },
