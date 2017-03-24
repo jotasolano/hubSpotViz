@@ -3,34 +3,17 @@ import * as d3 from 'd3';
 let crossfilter = require('crossfilter'); //CommonJS
 import 'bootstrap/dist/css/bootstrap.css'
 
-// >> ------- DEPENDENCIES – MODULES ------- **
 import DataLoader from './data';
 
 let cf;
 
 let data = DataLoader()
-	.on('loaded', function(data){ //anything below only happens after data has been loaded
-		cf = crossfilter(data.trip1)
-		console.log(cf);
-	})
 	.on('error', function(err){
 		console.log(err);
 	})
 
-// calling the data
-data();
-
-// import Arc from './modules/Arc.js'
-// ** ------- DATA QUERY ------- **
-// d3.queue()
-// 	.defer(d3.csv, './data/201601-hubway-tripdata.csv',parseTrips)
-// 	.defer(d3.csv, './data/201602-hubway-tripdata.csv',parseTrips)
-// 	.defer(d3.csv, './data/2016_0429_Hubway_Stations.csv',parseStations)
-// 	.await(dataLoaded);
-
-// >>> dataLoaded()
-function dataLoaded(err,trip1, trip2, stations){
-	var alltrips = trip1.concat(trip2);
+	.on('loaded', function(data){ //anything below only happens after data has been loaded
+	var alltrips = data.trip1.concat(data.trip2);
 
 	console.log(alltrips);
 
@@ -100,9 +83,6 @@ function dataLoaded(err,trip1, trip2, stations){
 
 	console.log(arcGenerator([filtered]));
 
-
-
-
 	// var radiallineGenerator = d3.radialLine()
 	// 	.angle(function(d){ return console.log((d.duration)/60); })
 	// 		// .angle(function(d){ return console.log(Math.PI*((d.endTime - d.startTime)/3600/60)); })
@@ -111,46 +91,8 @@ function dataLoaded(err,trip1, trip2, stations){
 	// console.log(radiallineGenerator([filtered[0], filtered[1]]));
 
 
-} // <<< dataLoaded()
+	})
 
 
-
-function parseTrips(d){
-	return {
-		bike_nr:d.bikeid,
-		duration:+d.tripduration,
-		startStn:d['start station name'],
-		startStnId:d['start station id'],
-		startTime:parseTime(d.starttime),
-		endStn:d['end station name'],
-		endStnId:d['end station id'],
-		endTime:parseTime(d.stoptime),
-		userType:d.usertype,
-		userGender:d.gender?d.gender:undefined,
-		userBirthdate:d['birth year']?+d['birth year']:undefined
-	};
-}
-
-function parseStations(d){
-	return {
-		name:d.Station,
-		id:d['Station ID'],
-		lngLat:[+d.Longitude,+d.Latitude],
-		city:d.Municipality
-	};
-}
-
-function parseTime(timeStr){ //2016-01-01 00:08:07
-	var time = timeStr.split(' ')[1].split(':'),
-		hour = +time[0],
-		min = +time[1],
-		sec = +time[2];
-
-	var	date = timeStr.split(' ')[0].split('-'),
-		year = date[0],
-		month = date[1],
-		day = date[2];
-
-	// return new Date(year,month-1,day,hour,min,sec);
-	return (hour + ':' + min + ':' + sec);
-}
+// ** ------- DATA QUERY ------- **
+data();
