@@ -1,0 +1,15 @@
+body{
+	background-color: #2B3238;
+}
+
+#canvas{
+	min-height: 600px;
+}
+
+
+/*.axis line,
+.axis circle {
+	fill: none;
+	stroke: steelblue;
+	stroke-dasharray: 4;
+}*/

@@ -16,7 +16,7 @@ function DataLoader(){
 			endTime:parseTime(d.stoptime),
 			userType:d.usertype,
 			userGender:d.gender?d.gender:undefined,
-			userBirthdate:d['birth year']?+d['birth year']:undefined
+			userBirthdate:+d['birth year']?+d['birth year']:undefined
 		};
 	}
 
@@ -34,12 +34,7 @@ function DataLoader(){
 			hour = +time[0],
 			min = +time[1],
 			sec = +time[2];
-		var	date = timeStr.split(' ')[0].split('-'),
-			year = date[0],
-			month = date[1],
-			day = date[2];
-		// return new Date(year,month-1,day,hour,min,sec);
-		return (hour + ':' + min + ':' + sec);
+		return (hour + min/60 + sec/3600);
 	}
 
 	function exports(){
