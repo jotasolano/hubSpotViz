@@ -2,10 +2,33 @@ body{
 	background-color: #2B3238;
 }
 
-#canvas{
-	min-height: 600px;
+
+graphics-container{
+	width: 100%;
+	height: 100%;
+	position: relative;
 }
 
+#canvas,
+#scales {
+  /*width: 100%;*/
+  /*height: 100%;*/
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#canvas{
+	border-style: solid;
+	border-width: 2px;
+	border-color: green;
+}
+
+#scales{
+	border-style: solid;
+	border-width: 1px;
+	border-color: purple;
+}
 
 /*.axis line,
 .axis circle {

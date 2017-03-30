@@ -5,9 +5,11 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './styles.css'
 
 import DataLoader from './data';
-import Arc from './arc';
+import Arc from './Arc';
+import Scales from './Scales'
 
-let graphics = Arc()
+let graphics = Arc();
+let scales = Scales();
 
 
 // ** ------- DataLoader() ------- **
@@ -53,7 +55,8 @@ let data = DataLoader()
 
 	console.log(filtered);
 
-	d3.select('#test').datum(filtered).call(graphics);
+	d3.select('#canvas').datum(filtered).call(graphics);
+	d3.select('#scales').datum([0]).call(scales);
 
 	});
 
