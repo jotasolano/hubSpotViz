@@ -35,25 +35,11 @@ let data = DataLoader()
 	let cf = crossfilter(alltrips);
 	let tripsByStartTime = cf.dimension(function(d, i){ return d['startTime'[i]] ? d['startTime'[i]] : "No answer"; });
 
-	// console.log(tripsByStartTime.top(Infinity));
+	filtered.sort(function(a, b){return a.startTime - b.startTime})
 
 	// setting the time of each trip to "today" + specified hour:min:sec from data
 	filtered.forEach((d, i) => {d.lvl = i} );
 
-	// let scaleAngle = d3.scaleTime()
-	// 		.domain([0, 24])
-	// 		.range([0, 2 * Math.PI]);
-
-	// const baseRadius = 20;
-	// let arcGenerator = d3.arc()
-	// 	.innerRadius(function(d) { return baseRadius + d.lvl; })
-	// 	.outerRadius(function(d) { return baseRadius + d.lvl + 1; })
-	// 	.startAngle(function(d) { return scaleAngle(d.startTime); })
-	// 	.endAngle(function(d) { return scaleAngle(d.endTime); })
-
-	// console.log(arcGenerator(filtered[1]));
-
-	console.log(filtered);
 
 	d3.select('#canvas').datum(filtered).call(graphics);
 	d3.select('#scales').datum([0]).call(scales);
