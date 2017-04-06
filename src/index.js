@@ -22,31 +22,16 @@ let data = DataLoader()
 		console.log(err);
 	})
 
-	.on('loaded', function(data){ //anything below only happens after data has been loaded
+	.on('loaded', function(data){
 	let alltrips = data.trip1.concat(data.trip2);
 	let stationData = data.stations;
 
-	// Inputs' dispatchers
+	// Inputs' dispatchers - ! PLAN ON PUTTING FILTER FUNCTION INSIDE .on
 	let stationInputs = StationsList(stationData)
 	.on('start', function(startStation){
 		console.log(startStation);
 	});
 	
-	// ** ------- DATA MODEL ------- **
-	// Get all the station names
-	// let stationList = []
-	// stationData.forEach(el => { stationList.push(el.name) });
-
-	// // Populate the inputs
-	// var startInput = document.getElementById('start-station-input');
-	// var awesomplete = new Awesomplete(startInput);
-	// awesomplete.list = stationList;
-
-	// window.addEventListener("awesomplete-selectcomplete", function(e){
-	//   console.log(startInput.value);
-	// }, false);
-
-
 	// Filter data by any pair of stations -- CROSSFILTER NOT WORKING SEE BELOW --
 	let filtered = alltrips.filter(d => {
 		return d.startStn === 'University Park' && d.endStn === 'MIT at Mass Ave / Amherst St' ;
