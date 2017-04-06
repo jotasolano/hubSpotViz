@@ -8,17 +8,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './styles.css'
 
 import DataLoader from './data';
-import Dispatch from './Dispatcher'
 import Arc from './Arc';
 import Scales from './Scales'
 import StationsList from './Stations'
 
 let graphics = Arc();
 let scales = Scales();
-let range = Dispatch();
-
-range(); //this is the range dispatcher function
-
 
 // ** ------- DataLoader() ------- **
 let cf;
@@ -30,9 +25,12 @@ let data = DataLoader()
 	.on('loaded', function(data){ //anything below only happens after data has been loaded
 	let alltrips = data.trip1.concat(data.trip2);
 	let stationData = data.stations;
-	let stationInputs = StationsList(stationData);
 
-	stationInputs();
+	// Inputs' dispatchers
+	let stationInputs = StationsList(stationData)
+	.on('start', function(startStation){
+		console.log(startStation);
+	});
 	
 	// ** ------- DATA MODEL ------- **
 	// Get all the station names
