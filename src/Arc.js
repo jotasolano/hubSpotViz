@@ -31,7 +31,7 @@ function Arc(){
 
 		let arcGenerator = d3.arc()
 			.innerRadius(function(d) { return baseRadius + d.lvl; })
-			.outerRadius(function(d) { return baseRadius + d.lvl + 2; })
+			.outerRadius(function(d) { return baseRadius + d.lvl + 1; })
 			.startAngle(function(d) { return scaleAngle(d.startTime); })
 			.endAngle(function(d) { return scaleAngle(d.endTime); })
 			.context(context);

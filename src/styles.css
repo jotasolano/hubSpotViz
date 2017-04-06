@@ -10,6 +10,10 @@ body{
 	background-color: #2B3238;
 }
 
+.title-container{
+	margin-bottom: 40px;
+}
+
 
 .graphics-container{
 	width: 100%;

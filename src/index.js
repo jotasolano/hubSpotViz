@@ -1,15 +1,23 @@
 // ** ------- DEPENDENCIES ------- **
 import * as d3 from 'd3';
 let crossfilter = require('crossfilter'); //CommonJS
+let Awesomplete = require('awesomplete');
+import 'awesomplete/awesomplete.css';
+
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles.css'
 
 import DataLoader from './data';
+import Dispatch from './Dispatcher'
 import Arc from './Arc';
 import Scales from './Scales'
+import StationsList from './Stations'
 
 let graphics = Arc();
 let scales = Scales();
+let range = Dispatch();
+
+range(); //this is the range dispatcher function
 
 
 // ** ------- DataLoader() ------- **
@@ -20,20 +28,34 @@ let data = DataLoader()
 	})
 
 	.on('loaded', function(data){ //anything below only happens after data has been loaded
-	var alltrips = data.trip1.concat(data.trip2);
+	let alltrips = data.trip1.concat(data.trip2);
+	let stationData = data.stations;
+	let stationInputs = StationsList(stationData);
+
+	stationInputs();
 	
 	// ** ------- DATA MODEL ------- **
+	// Get all the station names
+	// let stationList = []
+	// stationData.forEach(el => { stationList.push(el.name) });
 
-	// Filter data by any pair of stations
+	// // Populate the inputs
+	// var startInput = document.getElementById('start-station-input');
+	// var awesomplete = new Awesomplete(startInput);
+	// awesomplete.list = stationList;
 
-	// tripsByStartTime.filter()
+	// window.addEventListener("awesomplete-selectcomplete", function(e){
+	//   console.log(startInput.value);
+	// }, false);
+
+
+	// Filter data by any pair of stations -- CROSSFILTER NOT WORKING SEE BELOW --
 	let filtered = alltrips.filter(d => {
 		return d.startStn === 'University Park' && d.endStn === 'MIT at Mass Ave / Amherst St' ;
 	});
 
-
-	let cf = crossfilter(alltrips);
-	let tripsByStartTime = cf.dimension(function(d, i){ return d['startTime'[i]] ? d['startTime'[i]] : "No answer"; });
+	// let cf = crossfilter(alltrips);
+	// let tripsByStartTime = cf.dimension(function(d, i){ return d['startTime'[i]] ? d['startTime'[i]] : "No answer"; });
 
 	filtered.sort(function(a, b){return a.startTime - b.startTime})
 
