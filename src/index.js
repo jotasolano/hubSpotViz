@@ -42,7 +42,7 @@ let data = DataLoader()
 
 	filtered.sort(function(a, b){return a.startTime - b.startTime})
 
-	// setting the time of each trip to "today" + specified hour:min:sec from data
+	// adding a 'lvl' key for radius offsetting (see arc.js)
 	filtered.forEach((d, i) => {d.lvl = i} );
 
 
